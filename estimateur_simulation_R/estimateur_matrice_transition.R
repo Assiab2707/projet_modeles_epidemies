@@ -1,0 +1,100 @@
+library (ggplot2)
+N=100000
+alpha = 15
+gamma = 10
+  
+simu_2_2_model<- function(H,alpha,gamma){
+  beta<-1
+  X<-NULL
+  X[1]<-0
+  for (i in 1:H){
+    proba<-c(X[i]*alpha/(X[i]*alpha+beta+gamma),beta/(X[i]*alpha+beta+gamma),gamma/(X[i]*alpha+beta+gamma))
+    U<-sample(c(-1,0,1),H,replace=TRUE, prob=proba)
+    X[i+1]<-(X[i]+U[i])*(X[i]>0)+ (X[i]==0)*(U[i]==1)
+  }
+  return(X)
+}
+
+mod1<-simu_2_2_model(N,alpha,gamma)
+plot(mod1,type="o",col="blue",xlab='n',ylab=expression(X[n]), pch=16)
+
+pij_hat<- function(simu,n,i,j){
+  p_ij<-NULL
+  num<-0
+  denum<-0
+  for (k in 1:n){
+    num<- num+as.numeric(simu[k]==i && simu[k+1]==j)
+    denum<- denum + (as.numeric(simu[k]==i))
+    p_ij[k]<- num/denum
+  }
+  return(p_ij)
+}
+
+p_00<- pij_hat(mod1,N,0,0)
+plot(p_00,type="o",col="blue",xlab='n',ylab=expression(p["00"]), pch=16)
+abline(h=1/(1+gamma))
+
+
+p_11<- pij_hat(mod1,N,1,1)
+plot(p_11,type="o",col="blue",xlab='n',ylab=expression(p["11"]), pch=16)
+abline(h=1/(alpha+1+gamma))
+
+alpha_hat<- function(hat_p00, hat_p11){
+  alpha_n_hat<-NULL
+  for (i in 1:length(hat_p00)){
+    alpha_n_hat[i]<- (hat_p00[i]-hat_p11[i])/(hat_p00[i]*hat_p11[i])
+  }
+  simu_alpha<-data.frame(0:(length(hat_p00)-1),alpha_n_hat)
+  colnames(simu_alpha)<-c("n","h_alpha")
+  return(simu_alpha)
+}
+
+alpha_n<- alpha_hat(p_00, p_11)
+ggplot(data=alpha_n,aes(n,h_alpha)) + geom_line(color="#E69F00")+geom_point(color="#E69F00")+ylab(expression(hat(alpha[n])))+ ggtitle(expression(paste("Convergence de ", hat(alpha[n]))))+
+annotate("text", x=98000, y =17, label = expression(paste(alpha,"=15")))+geom_hline(yintercept=alpha)
+
+gamma_hat<- function(hat_p00, hat_p11){
+  gamma_n_hat<-NULL
+  for (i in 1:length(hat_p00)){
+    gamma_n_hat[i]<- (1-hat_p00[i])/(hat_p00[i])
+  }
+  simu_gamma<-data.frame(0:(length(hat_p00)-1),gamma_n_hat)
+  colnames(simu_gamma)<-c("n","h_gamma")
+  return(simu_gamma)
+}
+gamma_n<- gamma_hat(p_00, p_11)
+ggplot(data=gamma_n,aes(n,h_gamma)) + geom_line(color="#E69F00")+geom_point(color="#E69F00")+ylab(expression(hat(gamma[n])))+ ggtitle(expression(paste("Convergence de ", hat(gamma[n]))))+
+annotate("text", x=98000, y =11, label = expression(paste(gamma,"=10")))+geom_hline(yintercept=gamma)
+
+loi_estimateur<-function(H, alpha,gamma, nbsimu){
+  tab_gamma<-NULL
+  tab_alpha<-NULL
+  for (i in 1:nbsimu){
+    simu<- simu_2_2_model(H,alpha,gamma)
+    p_00<- pij_hat(simu,N,0,0)
+    p_11<- pij_hat(simu,N,1,1)
+    tab_alpha[i]<- alpha_hat(p_00, p_11)$h_alpha[H]
+    tab_gamma[i]<- gamma_hat(p_00, p_11)$h_gamma[H]
+  }
+  return(data.frame(alpha=tab_alpha,gamma=tab_gamma))
+}
+
+loi<- loi_estimateur(10000,15,10,100)
+
+ggplot(loi, aes(x = scale(alpha))) +
+  geom_histogram(aes(y = ..density..), binwidth = 0.1,
+                 colour = "#3366FF", fill = "#6699FF") + geom_density(size = 0.8, alpha = 0.05) +
+  scale_x_continuous(name = expression(hat(alpha[n])))+
+  scale_y_continuous(name = "Densité") +
+  ggtitle(expression(paste("Densité des ", hat(alpha[n]))))
+
+ggplot(loi, aes(x = scale(gamma))) +
+  geom_histogram(aes(y = ..density..), binwidth = 0.1,
+                 colour = "#3366FF", fill = "#6699FF") + geom_density(size = 0.8, alpha = 0.05) +
+  scale_x_continuous(name = expression(hat(gamma[n])))+
+  scale_y_continuous(name = "Densité") +
+  ggtitle(expression(paste("Densité des ", hat(gamma[n]))))
+
+shapiro.test(loi$alpha)
+shapiro.test(loi$gamma)
+ 
