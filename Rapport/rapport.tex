@@ -59,32 +59,35 @@
 
 \newpage
 \section*{Résumé}
-Dans ce projet, nous proposons des études mathématiques de différents modèles d'épidémies.\\
-C'est à l'aide de modèles Markoviens que nous chercherons par la suite à estimer les paramètres utilisés.
-Pour ce faire, nous commencerons par construire plusieurs modèles simplifiés de propagation d'épidémie. Nous développerons par la suite, des outils d'estimations.
-A travers cette démarche, nous souhaitons définir des estimateurs et analyser leurs comportements. Ces derniers nous permettrons de déterminer, de façon plus simple, l'évolution de l'épidémie.  
+\vspace{0.6cm}
+
+Dans ce projet, nous proposons des études mathématiques de différents modèles d'épidémies. C'est à l'aide de modèles Markoviens que nous chercherons par la suite à estimer les paramètres utilisés. Pour ce faire, nous commencerons par construire plusieurs modèles simplifiés de propagation d'épidémie. Nous développerons ensuite des outils d'estimations. A travers cette démarche, nous souhaitons définir des estimateurs et analyser leurs comportements. Ces derniers nous permettrons de déterminer, de façon plus simple, l'évolution de l'épidémie.  
 
 \section*{Remerciements}
-Nos remerciements s'adressent tout d'abord à notre responsable de projet Madame Benoîte De Saporta. Nous la remercions pour le temps qu'elle a consacré, sa disponibilité et les précieuses informations qu'elle a apporté pour la réalisation de notre rapport. 
+\vspace{0.6cm}
 
-Nous adressons également nos remerciements aux membres du jury et tout particulièrement Monsieur Charlier pour la critique de notre rapport. 
+Nos remerciements s'adressent tout d'abord à notre responsable de projet Madame Benoîte De Saporta. Nous la remercions pour le temps qu'elle a consacré, sa disponibilité et les précieuses informations qu'elle a apportées pour la réalisation de notre rapport. 
 \\
-Une pensée à nos proches pour le temps passé à la relecture de notre rapport.
+\\
+Nous adressons également nos remerciements aux membres du jury et tout particulièrement Monsieur Charlier pour la critique de notre rapport. 
+
 
 
 \newpage
 \tableofcontents
 \newpage
+\listoffigures
+\newpage
 \section*{Introduction}
-\vspace{1cm}
+\vspace{0.6cm}
+
 Une épidémie est définie comme l'apparition et la propagation d'une maladie infectieuse contagieuse qui frappe en même temps et en un même endroit un grand nombre de personnes. De plus, de nos jours, il semble indispensable de s'intéresser à la propagation de cette dernière. Avant toute chose, il serait intéressant de voir sous quelles conditions une épidémie a tendance à se développer ou bien au contraire tendance à s'éteindre. C'est pourquoi nous nous proposons d'étudier, à l'aide des chaînes de Markov, la propagation d'une épidémie.
 \\
 \\
 Un processus de Markov en temps discret est une séquence $(X_n)_{n\in\mathbb{N}}$ de variables aléatoires à valeurs dans l'espace d'états, que l'on notera $E$, et qui possède la propriété de Markov : $X_{n+1}$ ne dépend que de $X_n$, et est donc conditionnellement à $X_n$ indépendante. Le modèle n'a donc pas de "mémoire".
 \\
 \\
-\textbf{A REPRENDRE}
-Les chaînes de Markov $(X_n)_{n \in \mathbb{N}}$ , utilisés pour modéliser l'évolution des épidémies, seront construites comme suit. Comme toute la population est observée à chaque pas de temps, nous considérerons une population infinie, où trois états seront possibles : Contamination, Guérison et Inaction. En effet, un individu est dit contaminé lorsqu'il est infecté par la maladie. A contrario, l'individu est guérie lorsqu'il n'est plus infecté. Une inaction est une absence de contamination et de guérison. 
+Les chaînes de Markov $(X_n)_{n \in \mathbb{N}}$ , utilisés pour modéliser l'évolution des épidémies, seront construites comme suit. Comme toute la population est observée à chaque pas de temps, nous considérerons une population infinie, où trois événements seront possibles : une contamination, une guérison et une inaction. En effet, un individu est dit contaminé lorsqu'il est infecté par la maladie. A contrario, l'individu est guérie lorsqu'il n'est plus infecté. Une inaction est une absence de contamination et de guérison. 
 \\
 \\
 Nous allons étudier plusieurs modèles qui diffèrent par les probabilités que nous assignerons aux contaminations, guérisons et inactions. Nous regarderons leurs comportements en temps long à l'aide de simulations afin de voir s'il est possible ou non de contrôler l'épidémie.
@@ -94,10 +97,14 @@ Dans un dernier temps, nous nous intéresserons aux statistiques de ces chaînes
 
 \newpage
 \chapter*{Rappels}
-Notre projet s'appuie en majeure partie sur le cours de Processus Stochastiques. Le but de ces rappels est de définir les notions de cours utilisées. Il s'agit donc d'un petit guide de relecture.
-\vspace{1cm}\\
-\begin{definition}\label{def}
-Les classes d'équivalence pour la relation de communication forment une partition de $E .$ On les appelle classes communicantes ou classes de communication.
+
+Notre projet s'appuie en majeure partie sur le cours de Processus Stochastiques (cf \cite{cle1}). Le but de ces rappels est de définir les notions de cours utilisées. Il s'agit donc d'un petit guide de relecture.
+\\
+\\
+\begin{definition}
+Soit $E$ un ensemble dénombrable, $\mu$ une loi de probabilité sur $E$ et $P$ une matrice stochastique sur $E$. Un processus stochastique $X=(X_n)_{n \in \mathbb{N}}$ est une chaîne de Markov de loi initiale $\mu$ et de matrice de transition $P$ sur $E$ si : \\
+i) $X_0$ suit la loi $\mu$, \\
+ii) $\forall n \geqslant 0, \, \forall i_0, i_1, ..., i_n \in E, \, \mathbb{P}(X_{n+1}=j|X_n=i, ..., X_0=i_0) = \mathbb{P}(X_{n+1}=j|X_n=i) = p_{ij}.$
 \end{definition}
 \begin{definition}\label{defa}
 On dit que $i$ mène à $j$ et on note $i \longrightarrow j$ s'il existe un entier $n \geq 0$ tel que $\left(P^{n}\right)_{i j}>0$
@@ -105,20 +112,24 @@ On dit que $i$ mène à $j$ et on note $i \longrightarrow j$ s'il existe un enti
 \begin{definition}\label{defb}
 On dit que $i$ communique $j$ et on note $i \leftrightarrow j$ si i mène à $j$ et $j$ mène a $i$.
 \end{definition}
+\begin{prop}
+La relation de communication est une relation d'équivalence. Les classes d'équivalence sont appelées classes communicantes.
+\end{prop}
 \begin{definition}\label{def0}
-Une classe communicante $C$ est fermée si pour tout $i \in C$, pour tout $j \in E, i \rightarrow j$ implique $j \in C .$ C'est donc une classe dont on ne peut pas sortir.
+Une classe communicante $C$ est dite fermée si :
+$$\forall i \in C, \, \forall j \in E, i \rightarrow j \implies j \in C .$$
 \end{definition}
 \begin{definition}\label{defa0}
-Si la matrice $P$ a une seule classe de communication, on dit qu'elle est irréductible.
+Si la chaîne de Markov a une seule classe de communication, on dit qu'elle est irréductible.
 \end{definition}
 \begin{definition}\label{def00}
-Soit $i$ un état de $E$ et $\mathcal{I}(i)=\left\{n \in \mathbb{N}^{*} ; p_{i i}^{(n)}>0\right\} .$ On appelle période de $i$ le $P G C D$ de l'ensemble $\mathcal{I}(i) .$ Si la période de $i$ est 1, on dit que $i$ est apériodique, $s i$ $\mathcal{I}(i)=\emptyset$ on dit que la période de $i$ est infinie.
+Soit $i$ un état de $E$ et $\mathcal{I}(i)=\left\{n \in \mathbb{N}^{*} ; p_{i i}^{(n)}>0\right\} .$ On appelle période de $i$ le $P G C D$ de l'ensemble $\mathcal{I}(i) .$ Si la période de $i$ est $1$, on dit que $i$ est apériodique. Si $\mathcal{I}(i)=\emptyset$, on dit que la période de $i$ est infinie.
 \end{definition}
 
 \begin{thm}\label{th1}
 Soit $E$ un ensemble fini ou dénombrable, $U = (U_n)_{n\geq1}$ une suite de variables aléatoires indépendante et de même loi sur $(\mathbb{R},\mathbb{B(R))}$ et $f$ une application mesurable de $E \times \mathbb{R}$ dans $E$. Soit $V$ une variable aléatoire réelle de loi $\mu$ indépendante de 
 $U = (U_n)_{n\geq1}$.\\
-Alors le processus $X = (X_n)_{n\in \mathbb{N}}$ défini par $X_0=V$ et $X_{n+1}=f(X_{n},U_{n+1})$ est une chaîne de Markov de loi initiale $\mu$ et de matrice de transition P avec $ \forall (i,j) \in E^2 \ \  p_{i,j}=\mathbb{P}(f(i,U_{1})=j).$
+Alors le processus $X = (X_n)_{n\in \mathbb{N}}$ défini par $X_0=V$ et $X_{n+1}=f(X_{n},U_{n+1})$ est une chaîne de Markov de loi initiale $\mu$ et de matrice de transition $P$ avec $ \forall (i,j) \in E^2, \ \  p_{i,j}=\mathbb{P}(f(i,U_{1})=j).$
 \end{thm}
 
 \begin{definition}\label{def1}
@@ -126,9 +137,7 @@ Soit $A \subset E$. On appelle temps d'atteinte en $A$ la variable aléatoire : 
 Soit $i \in E$, si $A = \{i\}$, on note : $T_A = T_i$.
 \end{definition}
 
-\textbf{Notation} : Soit $A \subset E$, et $i$ un état de $E$. On note $u_i=\mathbb{P}_i(T_A <\infty)$ la probabilité d'atteindre A en partant de i.
-
-\begin{thm}\label{th2}: Soit $u = (u_i , I \in E)$. Alors u est la plus petite solution positive ou nulle du système:
+\begin{thm}\label{th2}: Soit $A \subset E$, et $i$ un état de $E$. On note $u_i=\mathbb{P}_i(T_A <\infty)$ la probabilité d'atteindre $A$ en partant de $i$. Soit $u = (u_i , I \in E)$. Alors $u$ est la plus petite solution positive ou nulle du système:
 \begin{align*}
  \left\{
 \begin{array}{ll}
@@ -152,17 +161,21 @@ infinité de $\left.n ; X_{n}=i\right)=0$.
 \end{itemize}
 \end{definition}
 \begin{thm}\label{th5}
-Tout état de $E$ est soit récurrent soit transitoire. De plus :
+Tout état de $E$ est soit récurrent, soit transitoire. De plus :
 \begin{itemize}
     \item Si $\mathbb{P}_i(S_i<\infty)=1$, alors $i$ est récurrent et $\sum\limits_{n=0}^{\infty} p_{ii}^{(n)}=\infty$
      \item Si $\mathbb{P}_i(S_i<\infty)<1$, alors $i$ est transitoire et $\sum\limits_{n=0}^{\infty} p_{ii}^{(n)}<\infty$
 \end{itemize}
 On note $p_{i j}^{(n)}=\left(P^{n}\right)_{i j}$ la coordonnée numéro $(i, j)$ de la matrice $P^{n}.$
 \end{thm}
-\begin{definition}\label{def21}: Soit $X=\left(X_{n}\right)_{n \in \mathbb{N}}$ une chaine de Markov irréductible et récurrente. $S i$ pour tout $i \in E$, on a $\mathbb{E}_{i}\left[S_{i}\right]<\infty$, on dit que la chaine est récurrente positive. Si pour tout $i \in E$, on a $\mathbb{E}_{i}\left[S_{i}\right]=\infty$, on dit qu'elle est récurrente nulle.
+\begin{definition}\label{def21}: Soit $X=\left(X_{n}\right)_{n \in \mathbb{N}}$ une chaine de Markov irréductible et récurrente.
+\begin{itemize}
+    \item Si $\forall i \in E, \, \mathbb{E}_{i}\left[S_{i}\right]<\infty$, on dit que la chaîne est récurrente positive. 
+    \item Si $\forall i \in E, \, \mathbb{E}_{i}\left[S_{i}\right]=\infty$, on dit que la chaîne est récurrente nulle.
+\end{itemize}
 \end{definition}
 \begin{thm}\label{th3}
-Soit $X=(X_n)_{n \in \mathbb{N}}$ une chaîne de Markov irréductible, récurrente positive et apériodique de probabilité invariante $\pi$. Alors pour tout $(i,j) \in E^2$:
+Soit $X=(X_n)_{n \in \mathbb{N}}$ une chaîne de Markov irréductible, récurrente positive et apériodique de probabilité invariante $\pi$. Alors, $\forall (i,j) \in E^2$:
 $$\lim\limits_{n \rightarrow \infty} \mathbb{P}_i(X_n = j) = \lim\limits_{n \rightarrow \infty} p^{(n)}_{ij} = \pi_j.$$
 \end{thm}
 
@@ -279,7 +292,7 @@ h & : & E \times \mathbb{R} & \longrightarrow & \mathbb{R} \\
 L'application $h$ est une fonction mesurable, $(U_n)_{n\in\mathbb{N}}$ une suite de variables aléatoires i.i.d à valeurs dans ($\mathbb{R},\cal{B}(\mathbb{R})$), $X_0$ une variable aléatoire à valeurs dans $E$ et indépendante de $(U_n)_{n\in \mathbb{N}}$ et $\forall n \in \mathbb{N}, \ \\X_{n+1}=h(X_n;U_{n+1})$.
 \\
 \\
-Alors, par le théorème \ref{th1} le processus $(X_n)_{n\in\mathbb{N}}$ défini par $X_0 = 0$ et $X_{n+1}=h(X_n,U_{n+1})$ est une chaîne de Markov de loi initiale $\delta_0$ et de matrice de transition $P = (p_{ij})_{(i,j) \in E^2}$ avec $p_{ij} = \mathbb{P}(h(i, U_{n+1} = j)$. 
+Alors, par le théorème \ref{th1}, le processus $(X_n)_{n\in\mathbb{N}}$ défini par $X_0 = 0$ et $X_{n+1}=h(X_n,U_{n+1})$ est une chaîne de Markov de loi initiale $\delta_0$ et de matrice de transition $P = (p_{ij})_{(i,j) \in E^2}$ avec $p_{ij} = \mathbb{P}(h(i, U_{n+1} = j)$. 
 \end{proof}
 \vspace{0.5cm}
 
@@ -306,7 +319,7 @@ Soit $i \in \mathbb{N}$ et $I(i) = \{n \in \mathbb{N}^* \, \, | \, \,p_{ii}^{(n)
 
 \section{Classification du processus}
 
-\subsection{Évaluation de la propagation}
+\subsection{Évaluation de la propagation de l'épidémie}
 \vspace{0.6cm}
 
 Dans cette section, nous allons désormais calculer la probabilité d'atteindre $0$ infecté. Notons que même en atteignant $0$, l'épidémie pourrait redémarrer. Il s'agit donc de voir s'il est possible de la contrôler ou non.
@@ -386,7 +399,7 @@ $$(S) \iff \left\{
     \right.$$
 \\
 Or, vu que $u$ est la plus petite solution positive du système, on a $b=0$.\\
-Donc $\forall i \in \mathbb{N}, \, u_i=1.$
+Donc : $\forall i \in \mathbb{N}, \, u_i=1.$
 \vspace{0.7cm}\\
 \textbf{\underline{Cas 2} :} Si $\alpha \neq \gamma$, alors $\Delta > 0$. Il y a alors deux solutions réelles : 
 \\
@@ -413,8 +426,7 @@ Les solutions sont donc de la forme $\forall i \in \mathbb {N}, u_i = a \times 1
 &\iff \left\{
 \begin{array}{ll}
         a=1-b\\
-        u_i=1-b+b\times \left(\frac{\alpha}{\gamma}\right)^i \ \ \forall i \in \mathb
-        b{N}
+        u_i=1-b+b\times \left(\frac{\alpha}{\gamma}\right)^i \ \ \forall i \in \mathbb{N}
     \end{array}
 \right.
 \iff \left\{
@@ -435,7 +447,7 @@ Les résultats obtenus sont cohérents. En effet, $\alpha$ correspond au taux de
 \subsection{Nature du processus}
 \vspace{0.6cm}
 
-Vu que la chaîne de Markov est irréductible, nous souhaitons étudier sa nature, c'est-à-dire si elle est récurrente ou transitoire. Étant donné que nous travaillons avec un espace d'états non fini, nous ne pouvons pas déterminer directement la nature de la chaîne. Nous allons de ce fait utiliser le théorème \ref{th5}.
+Vu que la chaîne de Markov est irréductible, nous souhaitons étudier sa nature, c'est-à-dire savoir si elle est récurrente ou transitoire. Étant donné que nous travaillons avec un espace d'états non fini, nous ne pouvons pas déterminer directement la nature de la chaîne. Nous allons de ce fait utiliser le théorème \ref{th5}.
 
 \begin{prop}
 Nous avons les deux cas de figure suivants :
@@ -549,19 +561,15 @@ Nous en déduisons : $\forall i \in \mathbb{N}, \, \pi_i = \pi_1$, i.e $\pi = c 
 \\
 \\
 Soit $i \in \mathbb{N}$, et $\pi^i$ l'unique mesure invariante vérifiant $\pi_i^i=1$. Nous notons $c_i\in \mathbb{R}_+^*$ la constante telle que $\pi_i^i=1$. Ici, nous avons : $\pi^i=c_i\left(1,1,...,1,...\right)=\left(1,1,...,1,...\right)$.
-Alors, par théorème \ref{def21}, $\forall i \in E$ :
-$$\mathbb{E}_i[S_i]=\sum\limits_{j\in E }\pi_j^i = \sum\limits_{j\in\mathbb{N} }\pi_j^i = \sum\limits_{j\in\mathbb{N} }1 = +\infty.$$
+Alors, par le théorème \ref{def21}, $\forall i \in E$ :
+$$\mathbb{E}_i[S_i]=\sum\limits_{j\in E }\pi_j^i = \sum\limits_{j\in\mathbb{N} }1 = +\infty.$$
 
 Ainsi, pour $\alpha=\gamma$, $(X_n)_{n\in\mathbb{N}}$ est récurrente nulle.
 \\
 \\
-\textbf{\underline{Cas 2 } :} Si $\alpha > \gamma$, alors $\Delta > 0$. Il y a alors deux solutions réelles : 
+\textbf{\underline{Cas 2 } :} Si $\alpha > \gamma$, alors $\Delta > 0$. Il y a alors deux solutions réelles : $x_1= \frac{\gamma}{\alpha}$ et $x_2=1.$
 \\
-\begin{itemize}
-\item $x_1= \frac{\gamma}{\alpha},$
-\item $x_2=1.$
-\end{itemize}
-\vspace{0.5cm}
+\\
 Les solutions sont donc de la forme $\forall i \in \mathbb {N}, \pi_i = a \times 1^i + b \times (\frac{\gamma}{\alpha})^i = a+b\times (\frac{\gamma}{\alpha})^i$ avec $ (a,b) \in \mathbb{R}^2$.
 
 Alors :
@@ -688,17 +696,17 @@ Ainsi, à long terme, le nombre moyen d'infectés dépend de $\alpha$ et $\gamma
 \section{Simulations}
 \vspace{0.6cm}
 
-Pour terminer l'étude du modèle simple d'épidémie, nous avons simulé le comportement de notre chaîne de Markov en fonction des différents taux $\alpha, \beta$ et $ \gamma$. Nous observons son comportement pour une durée de $n=1000$. Nous obtenons alors les graphiques : \\
+Pour terminer l'étude du modèle simple d'épidémie, nous avons simulé le comportement de notre chaîne de Markov en fonction des différents taux $\alpha, \beta$ et $ \gamma$. Nous observons son comportement pour une durée de $n=1000$. Nous obtenons alors les graphiques de la figure suivants. \\
 \begin{figure}[h!]
     \begin{minipage}[c]{0.25\linewidth}
         \centering
-        \includegraphics[scale=0.47]{RecPos60_30_40.pdf}
+        \includegraphics[scale=0.45]{RecPos60_30_40.pdf}
     \end{minipage}
     \hfill%
     \vspace{0.1cm}
     \begin{minipage}[c]{0.50\linewidth}
         \centering
-        \includegraphics[scale=0.47]{RecPos60_40_30.pdf}  
+        \includegraphics[scale=0.45]{RecPos60_40_30.pdf}  
     \end{minipage}
     \caption{Représentation du processus dans le cas récurrent positif}
     \label{fig_rec_positif}
@@ -707,13 +715,13 @@ Pour terminer l'étude du modèle simple d'épidémie, nous avons simulé le com
 \begin{figure}[h!]
     \begin{minipage}[c]{0.25\linewidth}
         \centering
-        \includegraphics[scale=0.47]{Transi20_30_50.pdf}
+        \includegraphics[scale=0.45]{Transi20_30_50.pdf}
     \end{minipage}
     \hfill%
     \vspace{0.1cm}
     \begin{minipage}[c]{0.50\linewidth}
         \centering
-        \includegraphics[scale=0.47]{Transi30_20_50.pdf}
+        \includegraphics[scale=0.45]{Transi30_20_50.pdf}
     \end{minipage}
       \caption{Représentation du processus dans le cas transitoire}
       \label{fig_transitoire}
@@ -722,13 +730,13 @@ Pour terminer l'étude du modèle simple d'épidémie, nous avons simulé le com
 \begin{figure}[h!]
     \begin{minipage}[c]{0.25\linewidth}
         \centering
-        \includegraphics[scale=0.47]{RecNulle30_50_30.pdf}
+        \includegraphics[scale=0.45]{RecNulle30_50_30.pdf}
     \end{minipage}
     \hfill%
     \vspace{0.1cm}
     \begin{minipage}[c]{0.50\linewidth}
         \centering
-        \includegraphics[scale=0.47]{RecNulle40_10_40.pdf}
+        \includegraphics[scale=0.45]{RecNulle40_10_40.pdf}
     \end{minipage}
       \caption{Représentation du processus dans le cas récurrent nul}
       \label{fig_rec_nul}
@@ -738,7 +746,9 @@ Tout d'abord, la figure \ref{fig_rec_positif} est composé de deux graphiques, i
 \\
 Par la suite, dans la figure \ref{fig_transitoire}, nous avons simulé en vert les deux graphiques représentant la chaîne de Markov dans le cas transitoire, c'est-à-dire lorsque le taux de guérison est inférieur au taux de contamination. Sur ces graphiques, nous pouvons voir qu'il n'y a pratiquement pas de retour en $0$. Le nombre de contaminés augmente dans le temps avec de légère fluctuation. De ce fait, l'épidémie n'est pas contrôlée : le nombre de contaminés tend vers $+\infty$.\\
 \\
-Pour finir, les deux derniers graphiques de la figure \ref{fig_rec_nul} simulent la chaîne de Markov dans le cas récurrent nul, c'est-à-dire que le taux de guérison est égal au taux de contamination. Sur ces graphiques, nous observons des retours en $0$ moins récurrent que dans les gaphiques de la figure \ref{fig_rec_positif}. Le nombre de contaminés n'explose pas comme dans le cas transitoire mais reste tout de même élevé.
+Pour finir, les deux derniers graphiques de la figure \ref{fig_rec_nul} simulent la chaîne de Markov dans le cas récurrent nul, c'est-à-dire que le taux de guérison est égal au taux de contamination. Sur ces graphiques, nous observons des retours en $0$ moins récurrent que dans les graphiques de la figure \ref{fig_rec_positif}. Le nombre de contaminés n'explose pas comme dans le cas transitoire mais reste tout de même élevé.
+\\
+\\
 \\
 \\
 Finalement, ce modèle d'épidémie simple nous a permis d'avoir une première approche du comportement de l'épidémie en temps long selon les valeurs des taux de guérison et contamination. Un taux de guérison supérieur ou égal au taux de contamination engendrera de fortes fluctuations et permettra d'éviter une explosion du nombre de malades. Dans le cas contraire, ce nombre augmentera considérablement sur la durée avec de légères variations, avec une probabilité de retour en $0$ de plus en plus faible. Cependant, vu que l'évolution d'une épidémie dépend du nombre de contaminés $X_n = i$, ce modèle avec des probabilités constantes par rapport à $i$ n'est pas très proche de la réalité. Nous allons donc dans le prochain chapitre définir des nouveaux modèles plus adaptés et étudier leurs caractéristiques.
@@ -811,15 +821,14 @@ La preuve est la même que celle de la proposition \ref{simple_markov} en prenan
 \end{itemize}
 \end{proof}
 
-
-Nous obtenons alors le graphe associé :
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=1]{graphe_model_complexe1.pdf} 
-   \caption{Graphe du modèle de guérison}
+   \caption{Graphe orienté du modèle de guérison}
     \label{fig:graph}
 \end{figure}
-Nous pouvons constater sur la graphe qu'il y a une fois de plus une seule classe, et donc que la chaîne est irréductible. Nous avons également la proposition suivante.
+
+Nous obtenons alors le graphe associé, représenté dans la figure \ref{fig:graph}. Nous pouvons constater sur la graphe qu'il y a une fois de plus une seule classe, et donc que la chaîne est irréductible. Nous avons également la proposition suivante.
 \begin{prop}\label{aperiodique_guerison}
 La chaîne $(X_n)_{n \in \mathbb{N}}$ est apériodique.
 \end{prop}
@@ -886,7 +895,7 @@ La relation est vraie pour $i=2$.
 &\iff u_3 = \frac{-2 \alpha^2 + 2 \alpha^2 u_1 + 2 \alpha \gamma u_1 - \alpha \gamma + \alpha \gamma u_1 + \gamma^2 u_1 -2 \alpha \gamma u_1}{\gamma^2} \\
 &\iff u_3 = u_1 \left(\frac{-2 \alpha^2 + \alpha \gamma + \gamma^2}{\gamma^2}\right) + \frac{-2 \alpha^2 - \alpha \gamma}{\gamma^2} \\
 &\iff u_3 = u_1 \left(\frac{\alpha}{\gamma}\right)^{2} \sum_{j=1}^{3}(i-j)!\left(\frac{\gamma}{\alpha}\right)^{j-1} - \left(\frac{\alpha}{\gamma}\right)^{2} \sum_{j=1}^{2}(i-j)!\left(\frac{\gamma}{\alpha}\right)^{j-1} \\
-&\iff u_3 = (u_1 - 1)\left(\frac{\alpha}{\gamma}\right)^{2} \sum_{j=1}^{2}(i-j)!\left(\frac{\gamma}{\alpha}\right)^{j-1}.
+&\iff u_3 = (u_1 - 1)\left(\frac{\alpha}{\gamma}\right)^{2} \sum_{j=1}^{2}(i-j)!\left(\frac{\gamma}{\alpha}\right)^{j-1} + u_1.
 \end{align*}
 La relation est vraie pour $i=3$.\\
 
@@ -899,7 +908,7 @@ $$u_{i+1} = u_1 + (u_1 - 1)\left(\frac{\alpha}{\gamma}\right)^{i} \sum_{j=1}^{i}
 Nous avons : $\gamma \, u_{i+2} = -(i+1) \alpha u_i + ((i+1) \alpha + \gamma) u_{i+1} \iff u_{i+2} = -(i+1) \left(\frac{\alpha}{\gamma}\right) u_i + \frac{(i+1) \alpha + \gamma}{\gamma} u_{i+1}$.
 \\
 
-Nous allons procéder par la suite avec des changements d'indices du type $k=j+2$ pour la première somme et $k=j+1$ pour la deuxième. Nous obtenons alors :
+Nous allons procéder dans la suite de la démonstration avec des changements d'indices du type $k=j+2$ pour la première somme et $k=j+1$ pour la deuxième. Nous obtenons alors :
 
 \begin{align*}
 u_{i+2} &= -(i+1) \frac{\alpha}{\gamma} \left(u_1 + (u_1 - 1)\left(\frac{\alpha}{\gamma}\right)^{i-1} \sum_{j=1}^{i-1}(i-j)!\left(\frac{\gamma}{\alpha}\right)^{j-1}\right) \\
@@ -958,7 +967,7 @@ Nous venons de démontrer que l'état $0$ était récurrent, peu importe les par
 
 Maintenant que nous savons que la chaîne est récurrente, nous souhaitons voir dans quels cas elle est récurrente positive ou non. Nous pouvons énoncer le résultat suivant, que nous allons démontrer.
 
-\begin{thm}
+\begin{thm}\label{th_loi_inv}
 La chaîne de Markov $(X_n)_{n \in \mathbb{N}}$ est récurrente positive.
 \end{thm}
 \begin{proof}
@@ -1035,28 +1044,46 @@ $$\pi_i = \left(\frac{\gamma}{\alpha}\right)^{i}\frac{\pi_0}{i!}.$$
 Finalement : $\pi = c_i \left(1, \frac{\gamma}{\alpha}, \frac{\gamma^2}{2 \alpha^2},...,\frac{\gamma^i}{i! \,  \alpha^i},... \right) \text{ avec } c_i \in \mathbb{R}_+^{*}.$ \\
 
 La constante $c_i$ est telle que $\pi_i^i = 1$. Nous avons donc, $\forall i \in \mathbb{N}, \, c_i = \frac{i! \, \alpha^i}{\gamma^i}$. Nous en déduisons :
-$$\forall i \in \mathbb{N}, \, \, \mathbb{E}_i[S_i] = \sum\limits_{j=0}^{+\infty} \pi_j^i =  \sum\limits_{j=0}^{+\infty} \left(\frac{\gamma}{\alpha}\right)^j \frac{1}{j!} = c_i \, e^{\frac{\gamma}{\alpha}} < +\infty.$$
+$$\forall i \in \mathbb{N}, \, \, \mathbb{E}_i[S_i] = \sum\limits_{j=0}^{+\infty} \pi_j^i =  c_i \sum\limits_{j=0}^{+\infty} \left(\frac{\gamma}{\alpha}\right)^j \frac{1}{j!} = c_i \, e^{\frac{\gamma}{\alpha}} < +\infty.$$
 
 Ainsi, $(X_n)_{n \in \mathbb{N}}$ est récurrente positive.
 \end{proof}
 
-Nous obtenons donc que la chaîne est récurrente positive, peu importe les valeurs des taux de guérison et contamination.
+Nous obtenons donc que la chaîne est récurrente positive, peu importe les valeurs des taux de guérison et contamination. La preuve du théorème \ref{th_loi_inv} nous donne plusieurs résultats intéressants.
 
-En particulier : $$\mathbb{E}_0[S_0] = c_0 \, e^{\frac{\gamma}{\alpha}} = e^{\frac{\gamma}{\alpha}}.$$\\
-
-et $\pi$ est donc l'unique probabilité invariante de $(X_n)_{n \in \mathbb{N}}$. Nous avons alors, $\forall i \in \mathbb{N}$ :
-$$\pi_i = \frac{1}{\mathbb{E}_i[S_i]} = \frac{1}{c_i \, e^{\frac{\gamma}{\alpha}}} = \frac{\gamma^i \, e^{-\frac{\gamma}{\alpha}}}{i! \, \alpha^i}.$$ \\
-
-De même que dans la section précédente, la chaîne $(X_n)_{n \in \mathbb{N}}$ est apériodique. Vu qu'elle est aussi irréductible et récurrente positive de probabilité invariante $\pi$, alors par théorème, $\forall (i,j) \in \mathbb{N}^2$ :
-$$\lim\limits_{n \to +\infty} \mathbb{P}_i(X_n = j) = \pi_j.$$
+\begin{prop}
+La mesure $\pi$ est l'unique loi invariante de $(X_n)_{n \in \mathbb{N}}$ et nous avons : $$\forall i \in \mathbb{N}, \, \, \pi_i = \frac{\gamma^i \, e^{-\frac{\gamma}{\alpha}}}{i! \, \alpha^i}.$$ 
+\end{prop}
+\begin{proof}
+La chaîne $(X_n)_{n \in \mathbb{N}}$ est récurrente positive et $\pi$ vérifie $\pi P = \pi$. Alors, d'après le théorème \ref{th61}, $\pi$ est l'unique loi invariante de $(X_n)_{n \in \mathbb{N}}$. D'après la preuve du théorème \ref{th_loi_inv}, nous avons $\forall i \in \mathbb{N}$ :
+$$\pi_i = \frac{1}{\mathbb{E}_i[S_i]} = \frac{1}{c_i \, e^{\frac{\gamma}{\alpha}}} = \frac{\gamma^i \, e^{-\frac{\gamma}{\alpha}}}{i! \, \alpha^i}.$$
+\end{proof}
+\begin{remark}
+Nous avons en particulier : $\mathbb{E}_0[S_0] = c_0 \, e^{\frac{\gamma}{\alpha}} = e^{\frac{\gamma}{\alpha}}.$ Nous constatons que, partant de $0$, le temps de retour espéré en $0$ augmente si le taux de contamination augmente  et diminue si le taux de guérison augmente, ce qui est cohérent.
+\end{remark}
+\begin{prop}
+Nous avons les résultats suivants :
+\begin{itemize}
+    \item $\forall (i,j) \in \mathbb{N}^2, \, \, \lim\limits_{n \to +\infty} \mathbb{P}_i(X_n = j) = \frac{\gamma^j \, e^{-\frac{\gamma}{\alpha}}}{j! \, \alpha^j}.$
+    \item En particulier : $\lim\limits_{n \to +\infty} \mathbb{P}_i(X_n = 0) = e^{-\frac{\gamma}{\alpha}}.$
+\end{itemize}
+\end{prop}
+\begin{proof}
+D'après la proposition \ref{aperiodique_guerison}, la chaîne $(X_n)_{n \in \mathbb{N}}$ est apériodique. Vu qu'elle est aussi irréductible et récurrente positive de probabilité invariante $\pi$, alors par le théorème \ref{th3}, $\forall (i,j) \in \mathbb{N}^2$ :
+$$\lim\limits_{n \to +\infty} \mathbb{P}_i(X_n = j) = \pi_j = \frac{\gamma^j \, e^{-\frac{\gamma}{\alpha}}}{j! \, \alpha^j}.$$
 
 Ainsi, la probabilité partant de n’importe quel état $j$ différent de $0$ d’atteindre $0$ à long terme est $\frac{\gamma^j \, e^{-\frac{\gamma}{\alpha}}}{j! \, \alpha^j}$. En particulier :
 $$\lim\limits_{n \to +\infty} \mathbb{P}_i(X_n = 0) = \pi_0 = e^{-\frac{\gamma}{\alpha}}.$$\\
+\end{proof}
 
-\subsection{Théorème ergodique}
+\subsection{Ergodicité}
+\vspace{0.6cm}
 
-Nous terminons l'étude de ce second modèle de la même manière que le premier, c'est-à-dire en calculant le nombre d’infectés moyen à long terme : $$\lim\limits_{n \to +\infty} \frac{1}{n} \sum\limits_{k=0}^{n-1} X_k$$. 
-
+Nous terminons l'étude de ce second modèle de la même manière que le premier, c'est-à-dire en calculant le nombre d’infectés moyen à long terme : $\lim\limits_{n \to +\infty} \frac{1}{n} \sum\limits_{k=0}^{n-1} X_k.$
+\begin{thm}
+Le nombre d’infectés moyen à long terme du modèle de guérison est : $$\lim\limits_{n \to +\infty} \frac{1}{n} \sum\limits_{k=0}^{n-1} X_k =  \frac{\gamma}{\alpha} \left(1 - e^{-\frac{\gamma}{\alpha}}\right).$$
+\end{thm}
+\begin{proof}
 Soit $f : \mathbb{N} \longrightarrow \mathbb{N}$ la fonction identité, i.e $\forall i \in \mathbb{N}, \, \, f(i) = i.$ Nous avons :
 \begin{align*}
 \sum_{i=0}^{+\infty} |f(i)| \pi_i &= \sum_{i=0}^{+\infty} i \left(\frac{\gamma}{\alpha}\right)^i \frac{e^{-\frac{\gamma}{\alpha}}}{i!} \\
@@ -1074,42 +1101,63 @@ $(X_n)_{n \in \mathbb{N}}$ est une chaîne de Markov irréductible et récurrent
 $$\lim\limits_{n \to +\infty} \frac{1}{n} \sum\limits_{k=0}^{n-1} X_k= \pi f = \sum\limits_{i\in\mathbb{N}} f(i)\pi_i=  \frac{\gamma}{\alpha} \left(1 - e^{-\frac{\gamma}{\alpha}}\right) \text{   }\, \, \, \mathbb{P}_{\mu}-p.s.$$
 
 A long terme, le nombre moyen d'infectés est égal à $ \frac{\gamma}{\alpha} \left(1 - e^{-\frac{\gamma}{\alpha}}\right)$.
+\end{proof}
 
 \subsection{Simulations}
+\vspace{0.6cm}
 
-Nous allons dans cette section simuler le comportement de notre chaîne de Markov en fonction des différents taux $\alpha, \beta$ et $ \gamma$. Nous obtenons les graphiques représentant le nombre de contaminés en fonction du temps.
+Nous allons dans cette section simuler le comportement de notre chaîne de Markov en fonction des différents taux $\alpha, \beta$ et $ \gamma$. Nous obtenons les graphiques de l'évolution du processus dans le temps dans la figure \ref{fig_guerison}. Celui de gauche représente le cas où $\alpha < \gamma$. Nous pouvons observer de grandes oscillations avec quelques retours en $0$. Globalement, le nombre de contaminés ne tend pas vers $+\infty$ et l'épidémie ne se propagera pas à une grande échelle, même en ayant un taux de contamination plus élevé que celui de guérison. Dans le cas où $\alpha > \gamma$ (graphique de droite), les retours en $0$ sont beaucoup plus fréquents : l'épidémie restera toujours sous un seuil relativement faible.
 
 \begin{figure}[h]
     \begin{minipage}[c]{0.25\linewidth}
         \centering
-        \includegraphics[scale=0.47]{mod1_10_30_50.pdf}
+        \includegraphics[scale=0.45]{mod1_10_30_50.pdf}
     \end{minipage}
     \hfill%
     \vspace{0.1cm}
     \begin{minipage}[c]{0.50\linewidth}
         \centering
-       \includegraphics[scale=0.47]{mod1_15_10_10.pdf}
+       \includegraphics[scale=0.45]{mod1_15_10_10.pdf}
     \end{minipage}
+    \caption{Représentation du processus pour le modèle de guérison}
+    \label{fig_guerison}
 \end{figure}  
 
-La chaîne étant récurrente positive, nous constatons dans les deux représentations des retours en zéro successifs. Ici, nous augmentons le poids du taux de guérison. De plus, dans  la deuxième, le taux de guérison est supérieur au taux de contamination, ce qui implique un retour en zéro beaucoup plus fréquent. L'épidémie est contrôlée.
 
 \section{Modèle de contamination}
 
 \subsection{Construction du modèle}
 \vspace{0.6cm}
 
-Dans ce modèle, nous favorisons cette fois la probabilité d'être contaminé par la maladie. De ce fait, les probabilités changent et les possibilités pour le passage des temps $n$ à $n+1$ sont alors :
+Dans ce modèle, nous favorisons cette fois la probabilité d'être contaminé par la maladie. Nous commençons par construire le modèle à l'aide de la définition suivante.
+\\
+\begin{definition}
+On définit $(X_n)_{n\geq0}$ le processus où pour $n$ fixé, $X_n$  représente le nombre d'individus infectés par la maladie à l'instant $n$. Nous choisissons une échelle de temps assez petite par rapport à la dynamique de l'épidémie, pour que le passage de $n$ à $n+1$ correspondent à au plus une personne contaminée ou guérie en plus. 
+\\
+\\
+Soit $(\alpha, \beta, \gamma) \in (\mathbb{R}_+^*)^3$. Il y a donc trois possibilités conditionnellement à $X_n = i, \, \, \forall i \in \mathbb{N}^*$ :  
 \\
 \begin{itemize}
-\item une guérison avec une probabilité $\alpha_i=\frac{\alpha}{\alpha + \beta + i \times \gamma}.$
-\item une inaction avec une probabilité $\beta_i=\frac{\beta}{\alpha + \beta + i \times \gamma}.$
-\item une contamination avec une probabilité $\gamma_i=\frac{i \times \gamma}{\alpha + \beta + i \times \gamma}.$
+\item une guérison avec une probabilité $\alpha_i=\frac{\alpha}{\alpha+\beta+i \times \gamma}.$
+\item une inaction avec une probabilité $\beta_i=\frac{\beta}{\alpha+\beta+i \times \gamma}.$
+\item une contamination avec une probabilité $\gamma_i=\frac{i \times \gamma}{\alpha+\beta+i \times \gamma}.$
 \end{itemize}
 \vspace{0.5cm}
-
-Chaque pas de temps accentue donc le taux de contamination. Nous obtenons alors la matrice de transition et le graphe associé suivants.
-
+Pour $i=0$, il ne peut pas y avoir de guérison puisqu'il n'y a aucune personne infectée, et par définition, $\gamma_0 = 0$. Nous avons alors une inaction avec probabilité $1$. De ce fait, nous prenons : $X_0 = 1$. Nous avons alors :
+\\
+\begin{itemize}
+\item $\forall n \in \mathbb{N}$, \, si $X_n=0$,\, alors $X_{n+1} = X_n.$
+\item $\forall n \in \mathbb{N}^*$, \, si $X_n > 0$,\, alors $X_{n+1} = \left\{
+    \begin{array}{ll}
+        X_n+1 & \mbox{si le (n+1)ème événement est une contamination} \\
+        X_n-1 & \mbox{si le (n+1)ème événement est une guérison} \\
+        X_n & \mbox{sinon. }\\
+    \end{array}
+\right. $
+\end{itemize}
+\end{definition}
+\begin{prop}
+Le processus $(X_n)_{n \in \mathbb{N}}$ est une chaîne de Markov de loi initiale $\delta_0$ et de matrice de transition :
 $$P=
 \begin{pmatrix}
         1 & 0 & 0 & 0 & \cdots \\ 
@@ -1117,26 +1165,58 @@ $$P=
          0 & \alpha_2 & \beta_2 & \gamma_2 & \cdots\\
         \vdots &\ddots & \ddots & \ddots & \ddots \\ 
 \end{pmatrix}$$
+\end{prop}
+\begin{proof}
+La preuve est la même que celle de la proposition \ref{simple_markov} en prenant cette fois $(U_n)_{n\in \mathbb{N}}$ une suite de variables aléatoires indépendantes à valeurs dans $\{-1, 0, 1\}$ telles que $\forall n \in \mathbb{N}$: \\
+\begin{itemize}
+    \item $\mathbb{P}(U_n=1)= \frac{i \times \gamma}{\alpha+\beta+i \times \gamma},$
+    \item $\mathbb{P}(U_n=0)= \frac{\beta}{\alpha+\beta+i \times \gamma},$
+    \item $\mathbb{P}(U_n=-1)= \frac{\alpha}{\alpha+\beta+i \times \gamma}.$
+\end{itemize}
+\end{proof}
+
+La figure \ref{fig:my_label2} représente le graphe orienté associé à la chaîne de Markov et nous permet de visualiser les classes de communication.
+
 \begin{figure}[h]
     \centering
 \includegraphics[scale=1]{graphe_model_complexe2.pdf} 
-\caption{Graphe du modèle favorisant la contamination}
+\caption{Graphe orienté du modèle de contamination}
     \label{fig:my_label2}
 \end{figure}
 
-
-Nous constatons que 0 est un état absorbant car $1 \longrightarrow 0$ et $\forall i \in \mathbb{N}^*, \, \, 0 \nrightarrow i$. De plus : $\forall i \in \mathbb{N}^*,\ \  i \longleftrightarrow i+1$. Il y a donc deux classes : $C_1=\{0\}$ et $C_2=\mathbb{N}^*.$
+\begin{prop}
+La chaîne de Markov $(X_n)_{n \in \mathbb{N}}$ est telle que :
+\begin{itemize}
+    \item elle admet deux classes de communication $C_1=\{0\}$ et $C_2=\mathbb{N}^*.$
+    \item $C_1$ est récurrente.
+    \item $C_2$ est transitoire.
+    \item $0$ est un état absorbant.
+\end{itemize}
+\end{prop}
+\begin{proof}
+Nous constatons que l'état $0$ est un état absorbant car $1 \longrightarrow 0$ et $\forall i \in \mathbb{N}^*, \, \, 0 \nrightarrow i$. De plus : $\forall i \in \mathbb{N}^*,\ \  i \longleftrightarrow i+1$. Il y a donc deux classes : $C_1=\{0\}$ et $C_2=\mathbb{N}^*.$
 \\
 \\
 La classe $C_1$ est fermée car $\forall i \in C_2, \, \, 0 \nrightarrow i$. Vu que $C_1$ est finie, alors $C_1$ est récurrente.
 \\
 \\
 La classe $C_2$ est non fermée car $1 \rightarrow 0$ et $0 \notin C_2$. La classe $C_2$ est donc transitoire.
+\end{proof}
 
-\subsection{Probabilité d'atteindre 0 en temps long}
+\subsection{Comportement en temps long}
 \vspace{0.6cm}
 
-Soit $T_0$ le temps d'atteinte en 0. Nous cherchons à calculer la probabilité d'atteindre 0 partant de n'importe quel sommet i.e $\forall i\in \mathbb{N}, \ \mathbb{P}_i(T_0 < \infty)$. Soit i$\in\mathbb{N}$. On pose $u_i=\mathbb{P}_i(T_0< \infty)$ et $u=(u_i,\  i\in \mathbb{N})$. Alors par théorème, u est la plus petite solution  positive du système : 
+Le but de cette partie est d'étudier le comportement du processus en temps long. Vu que nous avons deux classes, nous souhaitons savoir la probabilité de sortir de la classe $C_2$ pour pouvoir atteindre $0$ infecté en fonction du nombre de contaminés. Nous avons pour cela le théorème suivant.
+
+\begin{thm}
+Soit $T_0$ le temps d'atteinte en $0$. Soit $i \in \mathbb{N}$. On pose $u_i=\mathbb{P}_i(T_0< \infty)$ et $u=(u_i,\  i\in \mathbb{N})$. Alors :
+\begin{itemize}
+    \item $u_1 = 1 - e^{-\frac{\alpha}{\gamma}}$,
+    \item $\lim\limits_{i \rightarrow +\infty} u_i = 0.$
+\end{itemize}
+\end{thm}
+\begin{proof}
+D'après le théorème \ref{th2}, $u$ est la plus petite solution positive du système : 
 
 \begin{align*}
 (S) : \left\{
@@ -1177,7 +1257,8 @@ $$u_i = \frac{(u_1 - 1)}{(i-1)! \, \gamma^{i-1}} \left( \alpha^{i-1} + \sum_{j=1
 \textbf{Initialisation}: pour $i=2$ et $i=3$, nous avons :
 
 \begin{align*}
-0=\alpha u_0 - (\alpha + \gamma) u_1 + \gamma u_2 = \alpha - (\alpha + \gamma) u_1 + \gamma u_2 & \iff \gamma u_2 = - \alpha + (\alpha + \gamma)u_1 \\
+\alpha u_0 - (\alpha + \gamma) u_1 + \gamma u_2 = 0 &\iff \alpha - (\alpha + \gamma) u_1 + \gamma u_2 = 0 \\
+&\iff \gamma u_2 = - \alpha + (\alpha + \gamma)u_1 \\
 &\iff u_2 = - \frac{\alpha}{\gamma} + \frac{\alpha + \gamma}{\gamma} u_1 \\
 &\iff u_2 = \frac{\alpha}{\gamma}(u_1 - 1) + u_1.
 \end{align*}
@@ -1188,7 +1269,9 @@ La relation est vraie pour $i=2$.
 &\iff 2 \gamma u_3 = -\alpha u_1 + (\alpha + 2\gamma) \left(\frac{\alpha}{\gamma}u_1 +u_1 - \frac{\alpha}{\gamma} \right) \\
 &\iff 2 \gamma u_3 = u_1\left(\frac{\alpha^2}{\gamma} +2\alpha  +2\gamma\right) - 2\alpha - \frac{\alpha^2}{\gamma} \\
 &\iff  u_3 = u_1\left(\frac{\alpha^2}{2\gamma^2} +\frac{2\alpha}{2\gamma}  +1\right) - \frac{2\alpha}{2\gamma} - \frac{\alpha^2}{2\gamma^2}\\
-&\iff  u_3 = u_1\left(\frac{\alpha^2+2\gamma\alpha + 2\gamma^2}{2\gamma^2}\right)- \frac{\alpha^2+ 2\alpha\gamma}{2\gamma^2}
+&\iff u_3 = u_1\left(\frac{\alpha^2+2\gamma\alpha + 2\gamma^2}{2\gamma^2}\right)- \frac{\alpha^2+ 2\alpha\gamma}{2\gamma^2} \\
+&\iff u_3 = u_1\left(\frac{\alpha^2+2\gamma\alpha}{2\gamma^2} + 1 \right)- \frac{\alpha^2+ 2\alpha\gamma}{2\gamma^2} \\
+&\iff u_3 = (u_1 - 1) \left(\frac{\alpha^2+2\gamma\alpha}{2\gamma^2}\right) + u_1
 \end{align*}
 La relation est vraie pour $i=3$.\\
 
@@ -1212,7 +1295,7 @@ i\gamma\, u_{i+1} &= (\alpha + i\gamma) u_{i} - \alpha u_{i-1} \\
 \end{align*}
 
 
-En effectuant le changement de variable $l=j+1$ et en divisant par $i \, \gamma$, on obtient :
+En effectuant le changement d'indices $l=j+1$ et en divisant par $i \, \gamma$, on obtient :
 $$u_{i+1}=\frac{u_1 - 1}{i! \, \gamma^{i}}\left(\alpha^{i} + \sum_{l=1}^{i-1}(\prod_{k=i-l+1}^{i} k) \alpha^{i-l} \gamma^{l}\right)+  u_1.$$
 Ainsi, la récurrence est établie et $\forall i \geqslant 2$ :
 $$u_i = \frac{(u_1 - 1)}{(i-1)! \, \gamma^{i-1}} \left( \alpha^{i-1} + \sum_{j=1}^{i-2}\left(\prod_{k=i-j}^{i-1} k\right) \alpha^{i-j-1} \gamma^j \right) + u_1.$$
@@ -1239,7 +1322,7 @@ u_i \geqslant 0 &\iff \frac{(u_1 - 1)}{\gamma^{i-1}} \times S_i + u_1 \geqslant 
 Nous cherchons la limite de $\frac{S_i}{S_i + \gamma^{i-1}}$ quand $i \rightarrow +\infty$. Nous avons :
 $$S_i = \frac{\alpha^{i-1}}{(i-1)!}
  + \sum_{j=1}^{i-2}\left(\frac{1}{(i-j-1)!}\right) \alpha^{i-j-1} \gamma^j = \sum_{j=0}^{i-2}\left(\frac{1}{(i-j-1)!}\right) \alpha^{i-j-1} \gamma^j.$$
-Nous procédons à un changement de variables de la forme $k = i-j-1$. Pour $j=0$, $k=i-1$. Pour $j=i-2$, $k=1$. Nous obtenons alors :
+Nous procédons à un changement d'indices de la forme $k = i-j-1$. Pour $j=0$, $k=i-1$. Pour $j=i-2$, $k=1$. Nous obtenons alors :
 $$S_i = \sum_{k=1}^{i-1}\left(\frac{1}{k!}\right) \alpha^{k} \gamma^{i-k-1} = \gamma^{i-1} \sum_{k=1}^{i-1}\left(\frac{\left(\frac{\alpha}{\gamma}\right)^k}{k!}\right).$$
 
 Calculons alors le quotient suivant :
@@ -1249,9 +1332,6 @@ Or, lorsque $i \rightarrow +\infty$, nous avons l'équivalent :
 $$\frac{\sum\limits_{k=1}^{i-1}\left(\frac{\left(\frac{\alpha}{\gamma}\right)^k}{k!}\right)}{1 + \sum\limits_{k=1}^{i-1}\left(\frac{\left(\frac{\alpha}{\gamma}\right)^k}{k!}\right)} \sim \frac{e^{\frac{\alpha}{\gamma}}-1}{1 + e^{\frac{\alpha}{\gamma}}-1} = \frac{e^{\frac{\alpha}{\gamma}}-1}{e^{\frac{\alpha}{\gamma}}} = 1 - e^{-\frac{\alpha}{\gamma}}.$$
 
 Nous avons donc $u_1 \geqslant \frac{S_i}{S_i + \gamma^{i-1}}$ et $\lim\limits_{i \rightarrow +\infty} \frac{S_i}{S_i + \gamma^{i-1}} = 1 - e^{-\frac{\alpha}{\gamma}}$. Vu que $u_1$ est minimal, alors : $u_1 = 1 - e^{-\frac{\alpha}{\gamma}}.$
-\\
-\\
-La probabilité d'atteindre $0$ en partant de l'état $1$ est donc contrôlée par les valeurs de $\alpha$ et $\gamma$. En effet, si $\alpha$ augmente, alors $u_1$ augmente car la fonction exponentielle est croissante sur $\mathbb{R}$. A l'opposé, si $\gamma$ augmente, $u_1$ diminue car la fonction inverse est décroissante sur $]0,+\infty]$.
 \\
 \\
 Maintenant que nous avons déterminé $u_1$, nous pouvons étudier la limite de $u_i$ quand $i \rightarrow + \infty$. Rappelons tout d'abord l'expression de $u_i, \, \, \forall i \geqslant 2$ :
@@ -1268,49 +1348,64 @@ Calculons :
 &= -e^0 + 1 \\
 &= 0.
 \end{align*}
+\end{proof}
 
-Nous obtenons donc que $\lim\limits_{i \rightarrow +\infty} u_i = 0$. Ce résultat est cohérent puisque plus le nombre de contaminés est élevé, plus la probabilité de contamination est grande, et plus il est difficile d'atteindre l'état $0$.
+La probabilité d'atteindre $0$ en partant de l'état $1$ est donc contrôlée par les valeurs de $\alpha$ et $\gamma$. En effet, si $\alpha$ augmente, alors $u_1$ augmente car la fonction exponentielle est croissante sur $\mathbb{R}$. A l'opposé, si $\gamma$ augmente, $u_1$ diminue car la fonction inverse est décroissante sur $]0,+\infty]$.
 \\
 \\
-Finalement, nous pouvons observer deux cas de figure possibles. Le premier est celui où le taux de guérison a suffisamment d'impact par rapport à celui de contamination pour que $0$ soit atteint. Dans ce cas, il y aura extinction de l'épidémie car $0$ est absorbant. Le second cas est celui où le taux de guérison n'est pas assez significatif. Dans ce cas, il sera alors impossible d'endiguer l'épidémie et le nombre de contaminés ne cessera de croître.
+Nous obtenons de plus que $\lim\limits_{i \rightarrow +\infty} u_i = 0$. Ce résultat est cohérent puisque plus le nombre de contaminés est élevé, plus la probabilité de contamination est grande, et plus il est difficile d'atteindre l'état $0$.
+\\
+\\
+Finalement, nous pouvons observer deux cas de figure possibles. Le premier est celui où le taux de guérison a suffisamment d'impact par rapport à celui de contamination pour que $0$ soit atteint. Dans ce cas, il y aura extinction de l'épidémie car $0$ est absorbant. Le second cas est celui où le taux de guérison n'est pas assez significatif. Dans ce cas, il sera alors impossible d'endiguer l'épidémie et le nombre de contaminés augmentera sur la durée de manière conséquente, avec de légères fluctuations.
 
-\section{Simulations}
+\subsection{Simulations}
 \vspace{0.6cm}
 
-Nous allons désormais illustrer les résultats précédents par des simulations afin d'observer le comportement de notre chaîne de Markov en temps long. Nous obtenons les graphiques suivants : 
-
+Nous allons désormais illustrer les résultats précédents par des simulations afin d'observer le comportement de notre chaîne de Markov en temps long.
+\newpage
 \begin{figure}[h]
     \begin{minipage}[c]{0.25\linewidth}
         \centering
-        \includegraphics[scale=0.47]{mod_abs5_7_15.pdf}
+        \includegraphics[scale=0.45]{mod_abs5_7_15.pdf}
     \end{minipage}
     \hfill%
     \vspace{0.1cm}
     \begin{minipage}[c]{0.50\linewidth}
         \centering
-       \includegraphics[scale=0.47]{mod_abs5_7_15(2).pdf}
+       \includegraphics[scale=0.45]{mod_abs5_7_15(2).pdf}
     \end{minipage}
+    \caption{Représentation du processus pour le modèle de contamination}
+    \label{modele_conta}
 \end{figure} 
 
-Bien que les paramètres soient identiques, nous observons deux comportements totalement différents. En effet, sur le graphique de gauche, la chaîne de Markov semble croissante. Cette représentation est cohérente avec les résultats trouvés précédemment, nous constatons aucun retour en $0$. Plus nous avons de contaminés, plus la probabilité d'avoir $0$ cas est négligeable. Le nombre de contaminés augmente avec de légère variation. Comme nous sommes dans la classe $C_2$ qui est transitoire, nous savons que nous passons un nombre de fois fini sur chaque état.
-\\
-A contrario, la chaîne de Markov du graphique de droite, a le comportement opposé. Nous sortons de la classe $C_2$ en un temps fini, pour atteindre la classe $C_1$ qui signifie un nombre de contaminé égal à 0. Une fois dans cet état, on y reste. L'épidémie est alors contrôlée.
-Le nombre de contaminé au début étant faible, cela favorise ce comportement.
+Dans ce modèle-ci, $X_0 =1$ et bien que les paramètres soient identiques, nous observons dans la figure \ref{modele_conta} deux courbes totalement différentes. Cela est dû au comportement aléatoire de la chaîne. En effet, sur le graphique de gauche, le nombre de contaminés tend vers $+\infty$ et il n'y a aucun retour en $0$, ce qui est cohérent avec la limite trouvée précédemment. Le graphique de droite représente la seconde possibilité où l'état $0$ est atteint et l'épidémie est éteinte. Notons que $0$ est atteint très rapidement. En effet, la plus grande probabilité de l'atteindre en temps fini est celle partant de l'état $1$. Cette probabilité ne faisant que décroître en fonction du nombre de contaminés pour tendre vers $0$, il est donc normal d'atteindre l'état $0$ en un temps très court.
 
-\section{Conclusion}
+\vspace{1.5cm}
+En conclusion, les deux modèles, contamination et guérison, ont des comportements en temps long bien différents. En effet, lorsque le modèle dépend de la guérison, l‘épidémie retourne continuellement en zéro. De plus, un taux de guérison élevé entraîne un retour en zéro d’autant plus fréquent.
+A contrario, lorsque la modélisation dépend de la contamination, la chaîne de Markov admet deux classes. Les deux comportements suivants de l’épidémie sont donc possibles. Dans un cas, l’épidémie retourne rapidement  en zéro et y reste. Ceci est du à la nature absorbante de la classe. L’épidémie est ainsi rapidement contrôlée. Dans le second cas, en revanche, on voit l’épidémie se propager indéfiniment. Plus cette dernière se propage, plus la probabilité de guérison est faible. De ce fait, l’épidémie devient alors incontrôlable. Ces deux modèles permettent une représentation plus proche de la réalité que le modèle simple. Maintenant que nous avons pu voir l'implication des paramètres dans les modèles, nous allons chercher à les estimer dans le chapitre suivant.
+
 \newpage
-\chapter{Statistique de chaîne de Markov}
+\chapter{Statistiques de chaînes de Markov}
 
-\section{Estimateur par la matrice de transition}
+\section{Estimateurs par la matrice de transition}
 \vspace{0.6cm}
 
-Dans cette partie, nous nous plaçons de nouveau dans le modèle de guérison de la section $2.1$. Notre objectif va être d'estimer les paramètres $\alpha$, $\beta$ et $\gamma$ à partir des estimateurs des coefficients de la matrice de transition. Le problème est que nous obtenons les mêmes probabilités en multipliant $\alpha$, $\beta$ et $\gamma$ par une même constante. Il est donc impossible de déterminer directement les estimateurs $\hat{\alpha}$, $\hat{\beta}$ et $\hat{\gamma}$. Pour remédier à cela, nous devons choisir arbitrairement une valeur pour un des paramètres. Nous prenons : $\beta = 1$. Les taux de guérison et contamination seront donc les paramètres à estimer.
+Dans cette partie, nous nous plaçons de nouveau dans le modèle de guérison de la section $2.1$, dans le cas où la chaîne est récurrente positive. Notre objectif va être d'estimer les paramètres $\alpha$, $\beta$ et $\gamma$ à partir des estimateurs des coefficients de la matrice de transition. Le problème est que nous obtenons les mêmes probabilités en multipliant $\alpha$, $\beta$ et $\gamma$ par une même constante. Il est donc impossible de déterminer directement les estimateurs $\hat{\alpha}$, $\hat{\beta}$ et $\hat{\gamma}$. Pour remédier à cela, nous devons choisir arbitrairement une valeur pour un des paramètres. Nous prenons : $\beta = 1$. Les taux de guérison et contamination seront donc les paramètres à estimer.
 
-Tout d'abord, exprimons $\alpha$ et $\gamma$ en fonction des coefficients $p_00$ et $p_11$ de la matrice de transition du modèle de guérison.
-On a : 
+\begin{thm}\label{expression_alpha_gamma}
+Les estimateurs des paramètres $\alpha$ et $\gamma$ peuvent s'écrire de la manière suivante pour $n \in \mathbb{N}$ assez grand : \\
+\begin{itemize}
+    \item $\hat{\alpha^n} =\frac{\hat{p_{00}}^n- \hat{p_{11}}^n}{\hat{p_{00}}^n\hat{p_{11}}^n},$\\
+    \item $\hat{\gamma^n} =\frac{1-\hat{p_{00}}^n}{\hat{p_{00}}^n}.$
+\end{itemize}
+\end{thm}
+
+\begin{proof}
+Tout d'abord, exprimons $\alpha$ et $\gamma$ en fonction des coefficients $p_{00}$ et $p_{11}$ de la matrice de transition du modèle de guérison.
+On a le système suivant :
 
 \begin{align*}
-&\left\{
+(S') : &\left\{
 \begin{array}{ll}
         p_{00} = \frac{\beta}{\beta+\gamma} \\
         p_{11} = \frac{\beta}{\alpha+\beta+\gamma} 
@@ -1346,9 +1441,7 @@ On a :
     \right.      
 \end{align*}
 
-
-On sait que $\forall i,j \in \mathbb{N}$, l'estimateur de $p_{ij}$ est  : 
-$$\hat{p_{ij}}^n = \frac{\sum\limits_{k=0}^{n-1} \mathds{1}(X_k=i, X_{k+1}=j)}{\sum\limits_{k=0}^{n-1} \mathds{1}(X_k=i)}.$$
+D'après la proposition \ref{prop0}, $\forall (i,j) \in \mathbb{N}^2$ : $$\hat{p_{ij}}^n = \frac{\sum\limits_{k=0}^{n-1} \mathds{1}(X_k=i, X_{k+1}=j)}{\sum\limits_{k=0}^{n-1} \mathds{1}(X_k=i)} \, \, \, \text{ est un estimateur convergent de } p_{ij}.$$
 
 On en déduit les estimateurs de $\alpha$ et $\gamma$.
 \begin{align*}
@@ -1357,25 +1450,22 @@ On en déduit les estimateurs de $\alpha$ et $\gamma$.
 \hat{\gamma}^n &= \frac{1- \hat{p_{00}}^n}{\hat{p_{00}}^n} \\
 &= \frac{{\sum\limits_{k=0}^{n-1} \mathds{1}(X_k=0)}}{{\sum\limits_{k=0}^{n-1} \mathds{1}(X_k=0,X_{k+1}=0)}} - 1
 \end{align*}
-L'estimation des paramètres $\alpha$  et $\gamma$ par la loi invariante n'est pas possible. On ne peut qu'estimer la valeur de $\frac{\gamma}{\alpha}$, ce qui n'est pas très pertinent.
-\vspace{0.5cm}
+\end{proof}
+
+\begin{remark}
+Calculer les estimateurs de $\alpha$ et $\gamma$ par la loi invariante nous donne un modèle multiplicatif qui ne dépend pas de $\beta$. Cela rend leurs analyses peu pertinentes puisque nous serions obligés de poser un paramètre supplémentaire.
+\end{remark}
 
 \section{Convergence des estimateurs}
 
 \vspace{0.6cm}
 \begin{prop}\label{prop_conv}
-Soit le processus $X=(X_n)_{\mathbb{N}}$ irréductible et récurrent positif de loi invariante $\pi$. Alors les estimateurs $\hat{\alpha_n}$ et $\hat{\gamma_n}$ sont des estimateurs convergent de $\alpha$ et $\gamma$ respectivement.
-
-C'est-à-dire que : 
-\begin{itemize}
-    \item $\lim\limits_{n \to +\infty}\hat{\alpha^n} =\alpha, $\\
-    \item $\lim\limits_{n \to +\infty}\hat{\gamma^n} =\gamma. $
-\end{itemize}
+Les estimateurs $\hat{\alpha_n}$ et $\hat{\gamma_n}$ sont des estimateurs convergents respectivement de $\alpha$ et $\gamma$ :
+$$\lim\limits_{n \to +\infty}\hat{\alpha^n} =\alpha \, \, \, \text{ et } \, \, \, \lim\limits_{n \to +\infty}\hat{\gamma^n} =\gamma.$$
 \end{prop}
 
 \begin{proof}
-Montrons que nos estimateurs de $\alpha$ et $\gamma$ convergent.
-D'après la proposition \ref{prop0} , on sait que $\hat{p_{ij}}^n$ est un estimateur convergent de $p_{ij}$, c'est-à-dire que $\forall i,j \in \mathbb{N}$: 
+D'après la proposition \ref{prop0} , on sait que $\hat{p_{ij}}^n$ est un estimateur convergent de $p_{ij}$, c'est-à-dire que $\forall (i,j) \in \mathbb{N}^2$: 
 $$\lim\limits_{n \to +\infty}\hat{p_{ij}}^n = p_{ij}.$$ 
 
 D'où, par somme et produit : \\
@@ -1385,51 +1475,88 @@ D'où, par somme et produit : \\
 \end{itemize}
 \end{proof}
 
+\begin{remark}
+Il se trouve que les estimateurs $\hat{p_{ij}}^n$ coïncident avec les estimateurs de maximum de vraisemblance. Pour plus de détails, voir \cite{cle4}.
+\end{remark}
+
 \begin{example}\label{exemple_convergence}
-Afin d'illustrer la convergence des estimateurs de $\alpha$ et $\gamma$, nous avons simulé une chaîne de Markov de paramètres $\alpha =15, \beta = 1$ et $\gamma =10$ avec n=100 000
+Afin d'illustrer la convergence des estimateurs de $\alpha$ et $\gamma$, nous avons simulé une chaîne de Markov de paramètres $\alpha =15, \beta = 1$ et $\gamma =10$ avec $n=100 000$.
 
 \begin{figure}[h]
  \begin{minipage}[c]{0.25\linewidth}
         \centering
-        \includegraphics[scale=0.47]{convergence_alpha.pdf}
+        \includegraphics[scale=0.45]{convergence_alpha.pdf}
     \end{minipage}
     \hfill%
     \vspace{0.1cm}
     \begin{minipage}[c]{0.50\linewidth}
         \centering
-       \includegraphics[scale=0.47]{convergence_gamma.pdf}
+       \includegraphics[scale=0.45]{convergence_gamma.pdf}
     \end{minipage}
+    \caption{Convergence des estimateurs de $\alpha$ et $\gamma$ respectivement}
+    \label{convergence}
 \end{figure}
 
-On remarque que nos estimateurs tendent vers leurs vrai valeurs plus n devient grand.
+Nous remarquons que les estimateurs tendent vers la valeur que nous avons fixé. En effet, les estimateurs convergent vers leurs "vrais" valeurs prédéfinies lorsque $n$ est suffisamment grand.
 \end{example}
 
-\subsection{Estimation de la matrice de transition par maximum de vraisemblance}
+\newpage
+\section{Loi des estimateurs}
+\vspace{0.6cm}
 
-Remarques égalités des estimateurs:
+Nous souhaitons à présent déterminer la loi des estimateurs de $\alpha$ et $\gamma$.
+Pour ce faire, nous simulons 100 fois le même modèle, avec $n=100 000, \alpha=15, \beta=1$ et $\gamma=10$. Nous calculons nos estimateurs en temps long et obtenons les graphiques de la figure \ref{hist}.
+
+\begin{figure}[h]
+ \begin{minipage}[c]{0.25\linewidth}
+        \centering
+        \includegraphics[scale=0.45]{densite_alpha_2.pdf}
+    \end{minipage}
+    \hfill%
+    \vspace{0.1cm}
+    \begin{minipage}[c]{0.50\linewidth}
+        \centering
+       \includegraphics[scale=0.45]{densite_gamma_2.pdf}
+    \end{minipage}
+    \caption{Histogramme de densité des estimateurs de $\alpha$ et $\gamma$ respectivement}
+    \label{hist}
+\end{figure}
+
+Les données représentés à l'aide des histogrammes de fréquence semblent s'ajuster à une distribution normale. De ce fait, nous souhaitons vérifier la normalité de nos estimateurs. \\
 \\
-\\
-Conditionnellement à $X_{0}=i$, la vraisemblance du vecteur $\left(x_{0}, x_{1}, \ldots, x_{n}\right)$ pour la matrice de transition $P$ est
-$$L\left(X_{1}, \ldots, X_{n} ; P\right)=\prod_{(i, j) \in E^{2}} p_{i j}^{N_{i j}(n)}$$
-où $N_{i j}(n)=\sum_{k=0}^{n-1} \mathbb{1}_{\left(X_{k}=i, X_{k+1}=j\right)}$
-\\
-\\
+Pour cela, nous allons appliquer le  test de Shapiro-Wilk. Ce dernier  teste l'hypothèse $H_0$: "L'estimateur suit une loi Normale" contre l'hypothèse $H_1$: "L'estimateur ne suit pas une loi Normale". Rappelons que $H_0$ est rejeté si la p-value est plus petite que $\alpha=0,05$. 
+\newpage
+\begin{figure}[h!]
+ \begin{minipage}[c]{0.25\linewidth}
+        \centering
+        \includegraphics[scale=1.10]{shapiro_alpha2.JPG}
+    \end{minipage}
+    \hfill%
+    \vspace{0.1cm}
+    \begin{minipage}[c]{0.50\linewidth}
+        \centering
+       \includegraphics[scale=1.10]{shapiro_gamma2.JPG}
+    \end{minipage}
+    \caption{Test de Shapiro-Wilk des estimateurs de $\alpha$ et $\gamma$ respectivement}
 
-\subsection{Test de Shapiro-Wilk}
+\end{figure}
 
-Les données représentés à l'aide des histogrammes de fréquence semblent s'ajuster à une distribution normale.
-De ce fait, nous souhaitons vérifier la normalité de nos estimateurs.
-Pour cela, nous allons appliquer le  test de Shapiro-Wilk.
-\\
-Posons $H_0$: "L'estimateur est normalement distribuée" contre $H_1$: "L'estimateur ne suit pas une loi Normale". Rappellons que $H_0$ est rejeté si la p-value est plus petite que $\alpha=0,05$. 
-
-
-
+Les $p$-values de nos deux estimateurs $\hat{\alpha^n}$ et $\hat{\gamma^n}$ sont très élevées. On ne rejette donc pas l'hypothese de normalité des coefficients au risque $5 \%$. Ainsi, quand $n$ est suffisamment grand, $\hat{\alpha^n}$ et $\hat{\gamma^n}$ suivent des lois normales.
 
 
 \newpage
 \section*{Conclusion}
-Les modélisations presentés modélise de facon simplifié la propagation d'une épidemie. 
+\vspace{0.6cm}
+
+Les travaux présentés ont eu pour but de modéliser la propagation d'une épidémie et d’estimer au mieux les paramètres qui la contrôlent. Dans un premier temps, nous avons défini et étudié un modèle simple, où les probabilités de contamination, infection et inaction ont été posées de manière constante. Dans un second temps, nous avons complexifié les modèles, en renforçant tout d’abord la probabilité de guérison, puis celle de  contamination. L’analyse des différents modèles nous a permis de mettre en évidence des résultats intéressants, et d’anticiper le comportement en temps long de nos modèles selon les différentes valeurs des paramètres. Pour mieux visualiser les dynamiques de nos modèles et l’influence des paramètres, nous avons simulé certains cas. Enfin, pour finir,  nous avons cherché à estimer les paramètres de la section 2.1 et analyser leurs caractéristiques.
+\\
+\\
+Ce projet a été pour nous très enrichissant. Il nous a permis d’approfondir d’avantage les notions déjà traités en cours. Néanmoins, le travail fourni n’a pas toujours été facile. Nous avons été surpris par l'aspect calculatoire du projet. Nous avons passé beaucoup de temps aux résolutions de systèmes. Le deuxième obstacle auquel nous avons été confronté a été les estimateurs. Vu que nous avancions en terre inconnue, nous avons parfois chercher à estimer les paramètres par des méthodes qui étaient impossibles ou peu pertinentes. C’est pourquoi il a été nécessaire de fixer le paramètre $\beta$ afin de trouver les estimateurs par la matrice de transition. Nous avons passé beaucoup de temps à simuler nos résultats dans le but de trouver des conjectures. De plus, très peu de documentations étaient appropriées à nos besoins. Notez que nous avons rendu disponible nos programmes entièrement paramétrables sur le compte GitHub suivant :  
+\begin{center}
+    \url{https://github.com/Assiab2707/projet_modeles_epidemies}
+\end{center}
+
+La modélisation de la propagation d’une épidémie est un moyen de distinguer les cas où l’épidémie s’étendra de ceux où elle s’éteindra, et permet donc de faciliter la prise de décision. Néanmoins, dans des modèles plus réalistes, prenant en compte la complexité des interactions entre individus par exemple, nos modèles « naïfs » ne suffisent plus. Il faudrait ainsi réfléchir à des modèles plus pertinents. La difficulté est alors de déterminer les hypothèses d’un modèle afin qu’il soit adaptée au mieux à la situation. Par conséquent, des extensions de nos modèles peuvent être trouver afin d’y apporter de nouvelles perspectives. En effet, il aurait été intéressant de se placer dans un espace d’état fini. Nous aurions pu également admettre, dans ce cas, qu’un individu guéri est immunisé. L’étude en temps long aurait été différente et nous aurions pu nous demander sous quelle conditions notre population aurait connu l’immunité collective. Finalement, les modèles que nous avons étudié sont efficaces dans certaines situations, mais restent perfectibles.
 
 
 
@@ -1442,7 +1569,7 @@ Les modélisations presentés modélise de facon simplifié la propagation d'une
 
 
 \begin{thebibliography}{8} 
-\bibitem[1]{cle1} Benoîte de Saporta,{"Chaînes de Markov",  Processus Stochastiques, HMMA103, 2020-2021}
+\bibitem[1]{cle1} Benoîte de Saporta,{"Chaînes de Markov",  Processus Stochastiques, \url{https://moodle.umontpellier.fr/pluginfile.php/1240925/mod_resource/content/1/Chap3-Markov.pdf}, HMMA103, 2020-2021}
 \\
 \\
 \bibitem[2]{cle2} J-F Delams et B. Jourdain,{"Applications aux sciences de l'ingénieur et du vivant" , MATHEMATIQUES ET APPLICATIONS Comité de Lecture / Editorial Board, 2006 } 
@@ -1461,10 +1588,257 @@ Les modélisations presentés modélise de facon simplifié la propagation d'une
 
 
 \chapter*{Annexes}
+La librairie utilisée pour l'ensemble de ces simulations est la librairie "ggplot2". Il suffit de la charger à l'aide de la commande "library(ggplot2)".
 
-\section{Code représentation modèle 1}
+\section*{Code de la représentation du modèle simple}
+
+\begin{lstlisting}
+simu_simple<- function(H,alpha,beta,gamma){
+  X<-NULL
+  X[1]<-0
+  proba<-c(alpha/(alpha+beta+gamma),beta/(alpha+beta+gamma)
+            ,gamma/(alpha+beta+gamma))
+  U<-sample(c(-1,0,1),H,replace=TRUE, prob=proba)
+  for (i in 1:H){
+    X[i+1]<-(X[i]+U[i])*(X[i]>0)+ (X[i]==0)*(U[i]==1)
+  }
+  simu<-data.frame(0:1000,X)
+  colnames(simu)<-c("n","X_n")
+  return(simu)
+}
+
+#Récurrente positive
+simu_1<-simu_simple(1000,60,30,40)
+simu_1bis<-simu_simple(1000,60,40,30)
+ggplot(data=simu_1,aes(n,X_n)) + geom_line(color="#E69F00")+
+    geom_point(color="#E69F00")+ylab(expression(X[n]))+ 
+    ggtitle(expression(paste("Représentation du processus dans le cas 
+        où ",     (X[n])[n], " est récurrente positive")))+
+    annotate("text", x=100, y =17, label = 
+    expression(paste(alpha,"=60    ", beta,"=30    ",gamma,"=40    ")))
+
+ggplot(data=simu_1bis,aes(n,X_n)) + geom_line(color="#E69F00")+
+    geom_point(color="#E69F00")+ylab(expression(X[n]))+
+    ggtitle(expression(paste("Représentation du processus dans le cas
+        où ", (X[n])[n], " est récurrente positive")))+
+    annotate("text", x=100, y =6, label =
+    expression(paste(alpha,"=60    ", beta,"=40    ",gamma,"=30    ")))
+
+#Transitoire
+simu_2<-simu_simple(1000,20,30,50)
+simu_2bis<-simu_simple(1000,30,20,50)
+ggplot(data=simu_2,aes(n,X_n)) + geom_line(color="#33CC66")+
+    geom_point(color="#33CC66")+ylab(expression(X[n]))+ 
+    ggtitle(expression(paste("Représentation du processus dans le cas 
+        où ", (X[n])[n], " est transitoire")))+
+    annotate("text", x=100, y =310, label = 
+    expression(paste(alpha,"=20    ", beta,"=30    ",gamma,"=50    ")))
+    
+ggplot(data=simu_2bis,aes(n,X_n)) + geom_line(color="#33CC66")+
+    geom_point(color="#33CC66")+ylab(expression(X[n]))+ 
+    ggtitle(expression(paste("Représentation du processus dans le cas 
+        où ", (X[n])[n], " est transitoire")))+
+    annotate("text", x=100, y =230, label = 
+    expression(paste(alpha,"=30    ", beta,"=20    ",gamma,"=50    ")))
+
+#Récurrente nulle
+simu_3<-simu_simple(1000,30,50,30)
+simu_3bis<-simu_simple(1000,40,10,40)
+ggplot(data=simu_3,aes(n,X_n)) + geom_line(color="#6666FF")+
+    geom_point(color="#6666FF")+ylab(expression(X[n]))+ 
+    ggtitle(expression(paste("Représentation du processus dans le cas
+        où ", (X[n])[n], " est récurrente nulle")))+
+    annotate("text", x=100, y =28, label = 
+    expression(paste(alpha,"=30    ", beta,"=50    ",gamma,"=30    ")))
+
+ggplot(data=simu_3bis,aes(n,X_n)) + geom_line(color="#6666FF")+
+    geom_point(color="#6666FF")+ylab(expression(X[n]))+ 
+    ggtitle(expression(paste("Représentation du processus dans le cas 
+        où ", (X[n])[n], " est récurrente nulle")))+
+    annotate("text", x=100, y =33, label =
+    expression(paste(alpha,"=40    ", beta,"=10    ",gamma,"=40    ")))
+\end{lstlisting}
+
+\section*{Code de la représentation du modèle de guérison}
+\begin{lstlisting}
+N=1000
+simu_guerison<- function(H,alpha,beta,gamma){
+  X<-NULL
+  X[1]<-1
+  for (i in 1:H){
+    proba<-c(X[i]*alpha/(X[i]*alpha+beta+gamma),
+            beta/(X[i]*alpha+beta+gamma)
+            ,gamma/(X[i]*alpha+beta+gamma))
+    U<-sample(c(-1,0,1),H,replace=TRUE, prob=proba)
+    X[i+1]<-(X[i]+U[i])*(X[i]>0)+ (X[i]==0)*(U[i]==1)
+  }
+  simu<-data.frame(0:1000,X)
+  colnames(simu)<-c("n","X_n")
+  return(simu)
+}
+
+simu_gueri1<-simu_guerison(N,10,30,50)
+ggplot(data=simu_gueri1,aes(n,X_n)) + geom_line(color="#E69F00")+
+    geom_point(color="#E69F00")+ylab(expression(X[n]))+ 
+    ggtitle(expression(paste("Représentation du processus ", (X[n])[n])))+
+    annotate("text", x=100, y =12, label = 
+    expression(paste(alpha,"=10    ", beta,"=30    ",gamma,"=50    ")))
+
+simu_gueri2<-simu_guerison(N,15,10,10)
+ggplot(data=simu_gueri2,aes(n,X_n)) + geom_line(color="#E69F00")+
+    geom_point(color="#E69F00")+ylab(expression(X[n]))+ 
+    ggtitle(expression(paste("Représentation du processus ", (X[n])[n])))+
+    annotate("text", x=100, y =5.3, label = 
+    expression(paste(alpha,"=15    ", beta,"=10    ",gamma,"=10    ")))
+\end{lstlisting}
+
+\section*{Code de la représentation du modèle de contamination}
+
+\begin{lstlisting}
+N=1000
+model_contamination<- function(H,alpha,beta,gamma){
+  X<-NULL
+  X[1]<-1
+  for (i in 1:H){
+    proba<-c(alpha/(alpha+beta+X[i]*gamma),
+            beta/(alpha+beta+X[i]*gamma),
+            (X[i]*gamma)/(alpha+beta+X[i]*gamma))
+    U<-sample(c(-1,0,1),H,replace=TRUE, prob=proba)
+    X[i+1]<-(X[i]+U[i])*(X[i]>0)+ (X[i]==0)*(U[i]==1)
+  }
+  simu<-data.frame(0:1000,X)
+  colnames(simu)<-c("n","X_n")
+  return(simu)
+}
+simu_conta1<-model_contamination(N,5,7,8)
+ggplot(data=simu_conta1,aes(n,X_n)) + geom_line(color="#E69F00")+
+    geom_point(color="#E69F00")+ ylab(expression(X[n]))+ 
+    ggtitle(expression(paste("Représentation du processus")))+
+    annotate("text", x=100, y =1.15, label = 
+    expression(paste(alpha,"=5  ", beta,"=7  ",gamma,"=15    ")))
+
+simu_conta2<-model_contamination(N,5,7,15)
+ggplot(data=simu_conta2,aes(n,X_n)) +geom_line(color="#E69F00")+
+    geom_point(color="#E69F00")+ylab(expression(X[n]))+
+    ggtitle(expression(paste("Représentation du processus")))+
+    annotate("text", x=100, y =1000, label =
+    expression(paste(alpha,"=5  ", beta,"=7  ",gamma,"=15    ")))
+\end{lstlisting}
+
+\section*{Code simulant les estimateurs et leurs comportements}
+\begin{lstlisting}
+N=100000
+alpha = 15
+gamma = 10
+
+#Estimateurs
+simu_contamination_estimateur<- function(H,alpha,gamma){
+  beta<-1
+  X<-NULL
+  X[1]<-0
+  for (i in 1:H){
+    proba<-c(X[i]*alpha/(X[i]*alpha+beta+gamma),
+        beta/(X[i]*alpha+beta+gamma),
+        gamma/(X[i]*alpha+beta+gamma))
+    U<-sample(c(-1,0,1),H,replace=TRUE, prob=proba)
+    X[i+1]<-(X[i]+U[i])*(X[i]>0)+ (X[i]==0)*(U[i]==1)
+  }
+  return(X)
+}
+mod1<-simu_contamination_estimateur(N,alpha,gamma)
+plot(mod1,type="o",col="blue",xlab='n',ylab=expression(X[n]), pch=16)
+
+pij_hat<- function(simu,n,i,j){
+  p_ij<-NULL
+  num<-0
+  denum<-0
+  for (k in 1:n){
+    num<- num+as.numeric(simu[k]==i && simu[k+1]==j)
+    denum<- denum + (as.numeric(simu[k]==i))
+    p_ij[k]<- num/denum
+  }
+  return(p_ij)
+}
+
+p_00<- pij_hat(mod1,N,0,0)
+plot(p_00,type="o",col="blue",xlab='n',ylab=expression(p["00"]), pch=16)
+abline(h=1/(1+gamma))
+
+p_11<- pij_hat(mod1,N,1,1)
+plot(p_11,type="o",col="blue",xlab='n',ylab=expression(p["11"]), pch=16)
+abline(h=1/(alpha+1+gamma))
 
 
-\section{Code représentation modèle 2}
+
+alpha_hat<- function(hat_p00, hat_p11){
+  alpha_n_hat<-NULL
+  for (i in 1:length(hat_p00)){
+    alpha_n_hat[i]<- (hat_p00[i]-hat_p11[i])/(hat_p00[i]*hat_p11[i])
+  }
+  simu_alpha<-data.frame(0:(length(hat_p00)-1),alpha_n_hat)
+  colnames(simu_alpha)<-c("n","h_alpha")
+  return(simu_alpha)
+}
+
+alpha_n<- alpha_hat(p_00, p_11)
+ggplot(data=alpha_n,aes(n,h_alpha)) + geom_line(color="#E69F00")+
+    geom_point(color="#E69F00")+ylab(expression(hat(alpha[n])))+
+    ggtitle(expression(paste("Convergence de ", hat(alpha[n]))))+
+    annotate("text", x=98000, y =17, label = 
+    expression(paste(alpha,"=15")))+geom_hline(yintercept=alpha)
+
+gamma_hat<- function(hat_p00, hat_p11){
+  gamma_n_hat<-NULL
+  for (i in 1:length(hat_p00)){
+    gamma_n_hat[i]<- (1-hat_p00[i])/(hat_p00[i])
+  }
+  simu_gamma<-data.frame(0:(length(hat_p00)-1),gamma_n_hat)
+  colnames(simu_gamma)<-c("n","h_gamma")
+  return(simu_gamma)
+}
+gamma_n<- gamma_hat(p_00, p_11)
+ggplot(data=gamma_n,aes(n,h_gamma)) + geom_line(color="#E69F00")+
+    geom_point(color="#E69F00")+ylab(expression(hat(gamma[n])))+
+    ggtitle(expression(paste("Convergence de ", hat(gamma[n]))))+
+    annotate("text", x=98000, y =11, label =
+    expression(paste(gamma,"=10")))+geom_hline(yintercept=gamma)
+
+
+#Loi estimateurs
+loi_estimateur<-function(H, al,gam, nbsimu){
+  tab_gamma<-NULL
+  tab_alpha<-NULL
+  for (i in 1:nbsimu){
+    simu<- simu_contamination_estimateur(H,al,gam)
+    p_00<- pij_hat(simu,H,0,0)
+    p_11<- pij_hat(simu,H,1,1)
+    tab_alpha[i]<- alpha_hat(p_00, p_11)$h_alpha[H]
+    tab_gamma[i]<- gamma_hat(p_00, p_11)$h_gamma[H]
+  }
+  return(data.frame(alpha=tab_alpha,gamma=tab_gamma))
+}
+
+loi<- loi_estimateur(100000,alpha,gamma,100)
+ggplot(loi, aes(x = scale(alpha))) +
+  geom_histogram(aes(y = ..density..), binwidth = 0.1,
+                 colour = "#3366FF", fill = "#6699FF") + 
+  geom_density(size = 0.8, alpha = 0.05) +
+  scale_x_continuous(name = expression(hat(alpha[n])))+
+  scale_y_continuous(name = "Densité") +
+  ggtitle(expression(paste("Densité des ", hat(alpha[n]))))
+
+ggplot(loi, aes(x = scale(gamma))) +
+  geom_histogram(aes(y = ..density..), binwidth = 0.1,
+                 colour = "#3366FF", fill = "#6699FF") + 
+  geom_density(size = 0.8, alpha = 0.05) +
+  scale_x_continuous(name = expression(hat(gamma[n])))+
+  scale_y_continuous(name = "Densité") +
+  ggtitle(expression(paste("Densité des ", hat(gamma[n]))))
+
+#Test de Shapiro-Wilk
+shapiro.test(loi$alpha)
+shapiro.test(loi$gamma)
+ 
+\end{lstlisting}
 
 \end{document}
