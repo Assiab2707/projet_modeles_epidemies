@@ -2,8 +2,9 @@ library (ggplot2)
 N=100000
 alpha = 15
 gamma = 10
-  
-simu_2_2_model<- function(H,alpha,gamma){
+
+#Estimateurs
+simu_contamination_estimateur<- function(H,alpha,gamma){
   beta<-1
   X<-NULL
   X[1]<-0
@@ -15,7 +16,7 @@ simu_2_2_model<- function(H,alpha,gamma){
   return(X)
 }
 
-mod1<-simu_2_2_model(N,alpha,gamma)
+mod1<-simu_contamination_estimateur(N,alpha,gamma)
 plot(mod1,type="o",col="blue",xlab='n',ylab=expression(X[n]), pch=16)
 
 pij_hat<- function(simu,n,i,j){
@@ -34,10 +35,11 @@ p_00<- pij_hat(mod1,N,0,0)
 plot(p_00,type="o",col="blue",xlab='n',ylab=expression(p["00"]), pch=16)
 abline(h=1/(1+gamma))
 
-
 p_11<- pij_hat(mod1,N,1,1)
 plot(p_11,type="o",col="blue",xlab='n',ylab=expression(p["11"]), pch=16)
 abline(h=1/(alpha+1+gamma))
+
+
 
 alpha_hat<- function(hat_p00, hat_p11){
   alpha_n_hat<-NULL
@@ -66,20 +68,24 @@ gamma_n<- gamma_hat(p_00, p_11)
 ggplot(data=gamma_n,aes(n,h_gamma)) + geom_line(color="#E69F00")+geom_point(color="#E69F00")+ylab(expression(hat(gamma[n])))+ ggtitle(expression(paste("Convergence de ", hat(gamma[n]))))+
 annotate("text", x=98000, y =11, label = expression(paste(gamma,"=10")))+geom_hline(yintercept=gamma)
 
-loi_estimateur<-function(H, alpha,gamma, nbsimu){
+
+
+
+#Loi estimateurs
+loi_estimateur<-function(H, al,gam, nbsimu){
   tab_gamma<-NULL
   tab_alpha<-NULL
   for (i in 1:nbsimu){
-    simu<- simu_2_2_model(H,alpha,gamma)
-    p_00<- pij_hat(simu,N,0,0)
-    p_11<- pij_hat(simu,N,1,1)
+    simu<- simu_contamination_estimateur(H,al,gam)
+    p_00<- pij_hat(simu,H,0,0)
+    p_11<- pij_hat(simu,H,1,1)
     tab_alpha[i]<- alpha_hat(p_00, p_11)$h_alpha[H]
     tab_gamma[i]<- gamma_hat(p_00, p_11)$h_gamma[H]
   }
   return(data.frame(alpha=tab_alpha,gamma=tab_gamma))
 }
 
-loi<- loi_estimateur(10000,15,10,100)
+loi<- loi_estimateur(100000,alpha,gamma,100)
 
 ggplot(loi, aes(x = scale(alpha))) +
   geom_histogram(aes(y = ..density..), binwidth = 0.1,

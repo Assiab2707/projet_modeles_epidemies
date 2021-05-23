@@ -1,5 +1,5 @@
 N=1000
-simu_3_model<- function(H,alpha,beta,gamma){
+model_contamination<- function(H,alpha,beta,gamma){
   X<-NULL
   X[1]<-1
   for (i in 1:H){
@@ -12,12 +12,12 @@ simu_3_model<- function(H,alpha,beta,gamma){
   return(simu)
 }
 
-simu_5<-simu_3_model(N,5,7,8)
-ggplot(data=simu_5,aes(n,X_n)) + geom_line(color="#E69F00")+geom_point(color="#E69F00")+ylab(expression(X[n]))+ ggtitle(expression(paste("Représentation du processus")))+
+simu_conta1<-model_contamination(N,5,7,8)
+ggplot(data=simu_conta1,aes(n,X_n)) + geom_line(color="#E69F00")+geom_point(color="#E69F00")+ylab(expression(X[n]))+ ggtitle(expression(paste("Représentation du processus")))+
 annotate("text", x=100, y =1.15, label = expression(paste(alpha,"=5  ", beta,"=7  ",gamma,"=15    ")))
 
-simu_5<-simu_3_model(N,5,7,15)
-ggplot(data=simu_5,aes(n,X_n)) + geom_line(color="#E69F00")+geom_point(color="#E69F00")+ylab(expression(X[n]))+ ggtitle(expression(paste("Représentation du processus")))+
+simu_conta2<-model_contamination(N,5,7,15)
+ggplot(data=simu_conta2,aes(n,X_n)) + geom_line(color="#E69F00")+geom_point(color="#E69F00")+ylab(expression(X[n]))+ ggtitle(expression(paste("Représentation du processus")))+
 annotate("text", x=100, y =1000, label = expression(paste(alpha,"=5  ", beta,"=7  ",gamma,"=15    ")))
 
 
